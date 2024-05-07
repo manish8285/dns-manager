@@ -43,7 +43,7 @@ const DomainCard = ({ element, randomIndex }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': getToken()
+          'Authorization': `Bearer ${getToken()}`
         },
         body: JSON.stringify([{ Name: element.Name }]),
       });
