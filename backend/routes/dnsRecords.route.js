@@ -12,7 +12,7 @@ const router = express.Router();
 router.get('/all', getAllDNSRecordsHandler);
 router.post('/create-multi', createMultiDNSRecordsHandler);
 router.post('/create-one', createOneDNSRecordsHandler);
-router.post('/update', updateDNSRecordsHandler);
+router.put('/update', updateDNSRecordsHandler);
 router.post('/delete', deleteDNSRecordHandler);
 
 export default router;

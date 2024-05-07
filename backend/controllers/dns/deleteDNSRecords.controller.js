@@ -14,6 +14,7 @@ export const deleteDNSRecord = async (
       const existingRecords = await listExistingRecords(
         record.Name,
         record.Type,
+        HostedZoneId
       );
       if (existingRecords.length > 0) {
         // Delete existing record

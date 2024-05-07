@@ -3,16 +3,19 @@ import {
   ChangeResourceRecordSetsCommand,
   ListResourceRecordSetsCommand,
 } from '@aws-sdk/client-route-53';
-import { HostedZoneId, defaultTTL } from '../config/config.js';
+import { defaultTTL } from '../config/config.js';
 import { listExistingRecords } from '../utils/isRecordExist.js';
 import { getAllDNSRecords } from './dns/getAllDNSRecords.controller.js';
 import { createMultiDNSRecords } from './dns/createMultiDNSRecords.controller.js';
 import { createOneDNSRecords } from './dns/createOneDNSRecords.controller.js';
 import { deleteDNSRecord } from './dns/deleteDNSRecords.controller.js';
+import { updateDNSRecords } from './dns/updateDNSRecords.controller.js';
 
 // ---------------GET all dns record
 export const getAllDNSRecordsHandler = async (req, res) => {
-  try {
+  try
+  {
+    const { HostedZoneId } = req.query;
     await getAllDNSRecords(
       req,
       res,
@@ -43,7 +46,9 @@ export const createMultiDNSRecordsHandler = async (req, res) => {
 
 // -------------CREATE single dns record only
 export const createOneDNSRecordsHandler = async (req, res) => {
-  try {
+  try
+  {
+    const { HostedZoneId } = req.query;
     createOneDNSRecords(
       req,
       res,
@@ -63,7 +68,10 @@ export const createOneDNSRecordsHandler = async (req, res) => {
 //  because Route 53 uses the combination of the record's name, type, and set identifier (if applicable) to uniquely identify records.
 
 export const updateDNSRecordsHandler = async (req, res) => {
-  try {
+  try
+  {
+    console.log("updating ------>")
+    const { HostedZoneId } = req.query;
     updateDNSRecords(
       req,
       res,
@@ -73,7 +81,9 @@ export const updateDNSRecordsHandler = async (req, res) => {
       defaultTTL,
       listExistingRecords,
     );
-  } catch (error) {
+  } catch (error)
+  {
+    console.log(error)
     res.status(500).json({ error: 'Server Error Updating DNS records' });
   }
 };
@@ -81,7 +91,9 @@ export const updateDNSRecordsHandler = async (req, res) => {
 //  DELETE give records
 
 export const deleteDNSRecordHandler = async (req, res) => {
-  try {
+  try
+  {
+    const { HostedZoneId } = req.query;
     await deleteDNSRecord(
       req,
       res,

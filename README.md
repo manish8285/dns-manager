@@ -14,29 +14,52 @@
 
 ## Domain
 
+## how to run this project  
+### Run Backend
+1. clone this project  
+https://github.com/manish8285/dns-manager  
+2. go to backend directory  and install by npm i 
+3. make .env file and provide following creds  
+a) PORT 
+b) ACCESS_KEY_ID= [Your AWS KEY]  
+c) SECRET_ACCESS_KEY= [Your AWS SECRET] 
+d) HOSTED_ZONE_ID=[your zone like us-east-1]
+e) MONGODB_URI=[Your DB connection string]
+f) DB_NAME=dnsm 
+g) JWT_SECRET=12345-67890-09876-54321 
+
+4) Run this project by npm run dev  
+5) Copy the backend url
+
+### Run Frontend
+2. go to frontend directory  and install by npm i  
+3. make .env file and provide following creds  
+a) VITE_API_URI= [Your backend url like 'https://dns-manager-peach.vercel.app/api/v1']
+4) Run this project by npm run dev 
+5) Get the url and go to browser in order to access this url 
+
+
 
 GET
 Hello world
 
 ```
-https://dns-manager-1-b1ij.onrender.com/
+
 
 ```
 ---
 GET
-all
+all domains
 ```
-/api/v1/dns-records/all?HostedZoneId=Z08675451R065VIY3K2XK
+http://localhost:8181/api/v1/Domain/all
 ```
-Query Params
-```
-HostedZoneId = Z08675451R065VIY3K2XK
+
 ```
 ---
 
 POST
-create
-```/api/v1/domain/create```
+create domain
+```/domain/create```
 
 Body
 ```
@@ -54,7 +77,7 @@ Body
  POST
 Delete
 
-```/api/v1/domain/delete```
+```/domain/delete```
 
 Body
 
@@ -76,12 +99,10 @@ Body
 GET all
 
 ```
-api/v1/dns-records/all?HostedZoneId=Z08675451R065VIY3K2XK
+http://localhost:8181/api/v1/dns-records/all?HostedZoneId=Z05995882B14FLLSY3QI7
 ```
 
-Query Params
-```
-HostedZoneId = Z08675451R065VIY3K2XK
+
 ```
 
 
@@ -89,7 +110,7 @@ HostedZoneId = Z08675451R065VIY3K2XK
 POST
 create
 ```
-https://dns-manager-1-b1ij.onrender.com/api/v1/dns-records/create-multi
+/dns-records/create-multi
 
  {
     "Name": "ipv7.loveyou.com.",
@@ -107,30 +128,41 @@ https://dns-manager-1-b1ij.onrender.com/api/v1/dns-records/create-multi
 POST
 Delete Record
 ```
-/api/v1/dns-records/update
+http://localhost:8181/api/v1/dns-records/delete/?HostedZoneId=Z05995882B14FLLSY3QI7
 ```
 
 ```
 
-[  
-    {
-            "Name": "loveyou.com.",
+[{
+            "Name": "sub.homeorx.in.",
             "Type": "A",
-            "TTL": 800,
+            "TTL": 300,
             "ResourceRecords": [
                 {
-                    "Value": "192.0.2.1"
-                },
-                {
-                    "Value": "192.0.2.3"
-                },
-                {
-                    "Value": "192.0.2.4"
+                    "Value": "142.250.193.78"
                 }
             ]
-    }
-
-]
   
+```
+
+```
+PUT
+Update Record
+
+http://localhost:8181/api/v1/dns-records/update/?HostedZoneId=Z05995882B14FLLSY3QI7
+
+Body
+
+[{
+            "Name": "blog.homeorx.in.",
+            "Type": "A",
+            "TTL": 7200,
+            "ResourceRecords": [
+                {
+                    "Value": "192.0.0.2"
+                }
+            ]
+
+
 ```
 

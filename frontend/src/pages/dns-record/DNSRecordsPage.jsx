@@ -9,6 +9,7 @@ import RecordsCard from '../../components/dns-records/dns-record-list/RecordsCar
 import DNSCreationForm from '../../components/dns-records/create-methods/DNSCreationForm';
 import { myAxios } from '../../api/httpApi';
 import { IoIosLocate } from 'react-icons/io';
+import toast from 'react-hot-toast';
 // import { useLocation } from 'react-router-dom';
 const URL = import.meta.env.VITE_API_URI || '';
 
@@ -46,6 +47,30 @@ const DNSRecords = () => {
     const d = data.filter((domain) => domain.Id.includes(HostedZoneId))
     setDomain(d[0])
   }
+
+  const deleteDNSRecordHandler = async(record) =>
+  {
+    try {
+      const { data } = await myAxios.post(`${URL}/dns-records/delete/?HostedZoneId=${HostedZoneId}`,record)
+      toast.success("Record Deleted Successfully")
+      fetchData();
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      toast.error("Something went wrong , try after sometime !")
+    }
+  }
+
+  const updateDNSRecordHandler = async(record) =>
+    {
+      try {
+        const { data } = await myAxios.put(`${URL}/dns-records/update/?HostedZoneId=${HostedZoneId}`,record)
+        toast.success("Record Updated Successfully")
+        fetchData();
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        toast.error("Something went wrong , try after sometime !")
+      }
+    }
 
   useEffect(() => {
     fetchData();
@@ -95,7 +120,7 @@ const DNSRecords = () => {
               {
                 dnsRecords.map((details, index)=> (
                 
-                  <RecordsCard key={index} details={details} />
+                  <RecordsCard key={index} details={details} deleteHandler={deleteDNSRecordHandler} updateHandler={updateDNSRecordHandler} />
                 
                 )
                 )

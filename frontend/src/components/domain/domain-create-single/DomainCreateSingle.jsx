@@ -43,7 +43,7 @@ function DomainCreateSingle({ handleActiveMethods }) {
           className={styles['input']}
           type="text"
           id="domainName"
-          placeholder="Enter domain name like usman.app.com"
+          placeholder="Enter domain name like app.com"
           value={domainName}
           onChange={(event) => setDomainName(event.target.value)}
           required

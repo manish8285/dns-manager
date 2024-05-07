@@ -13,12 +13,15 @@ export const updateDNSRecords = async (
   listExistingRecords,
 ) => {
   const dnsRecords = req.body;
-  try {
+  try
+  {
+    console.log("after handler --->")
     console.log(dnsRecords);
     for (const record of dnsRecords) {
       const existingRecords = await listExistingRecords(
         record.Name,
         record.Type,
+        HostedZoneId
       );
       if (existingRecords.length > 0) {
         // if record exsit then update
