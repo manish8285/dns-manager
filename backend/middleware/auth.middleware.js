@@ -5,10 +5,12 @@ const sendResponseError = (statusCode, msg, res) => {
   res.status(statusCode || 400).send(!!msg ? msg : 'Invalid input !!')
 }
 
-export const verifyUser = async (req, res, next) => {
+export const verifyUser = async (req, res, next) =>
+{
+  console.log("auth----")
   const { authorization } = req.headers
   // console.log(req.headers);
-  // console.log(authorization)
+  console.log(authorization)
   if (!authorization) {
     sendResponseError(400, 'You are not authorized ', res)
     return
@@ -24,7 +26,7 @@ export const verifyUser = async (req, res, next) => {
       const user = await User.findById(payload.id, {password: 0})
 
       req['user'] = user
-
+      console.log('authenticated')
       next()
     } else {
       sendResponseError(400, `you are not authorizeed`, res)

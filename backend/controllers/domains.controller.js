@@ -21,7 +21,9 @@ export const listHostedZonesHandler = async (req, res) => {
 
 //  create a hosted zones or Domains
 
-export const createHostedZoneHandler = async (req, res) => {
+export const createHostedZoneHandler = async (req, res) =>
+{
+  console.log("create domain handler -------")
   try {
     const result = await createHostedZone(
       req,
@@ -30,7 +32,9 @@ export const createHostedZoneHandler = async (req, res) => {
       client,
       CreateHostedZoneCommand,
     );
-  } catch (error) {
+  } catch (error)
+  {
+    console.log(error)
     res.status(500).json({ error: 'Internal Server Error creating Domains' });
   }
 };

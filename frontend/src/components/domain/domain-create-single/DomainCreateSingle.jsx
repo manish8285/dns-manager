@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import styles from './domainCreateSingle.module.css';
 import toast from 'react-hot-toast';
 import { DnsContext } from '../../../context-api/DnsContext';
+import { getToken } from '../../../services/auth';
 const URL = import.meta.env.VITE_API_URI || '';
 
 function DomainCreateSingle({ handleActiveMethods }) {
@@ -15,6 +16,7 @@ function DomainCreateSingle({ handleActiveMethods }) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getToken()}`
         },
         body: JSON.stringify([{ Name: domainName }]),
       });

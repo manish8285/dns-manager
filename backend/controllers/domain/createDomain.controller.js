@@ -9,6 +9,7 @@ export const createHostedZone = async (
 ) => {
   try {
     const domainList = req.body;
+    console.log("create domains-----------")
     const existingHostedZones = await isDomainExist();
     console.log(existingHostedZones, 'existing zones ');
     const responses = []; //for final log
